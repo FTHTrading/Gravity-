@@ -1,0 +1,123 @@
+# ═══════════════════════════════════════════════════════════════════
+# GRAVITY- | Celery Worker Deployment (Auto-Scaling)
+# ═══════════════════════════════════════════════════════════════════
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gravity-worker
+  namespace: gravity
+  labels:
+    app: gravity-worker
+    component: worker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gravity-worker
+  template:
+    metadata:
+      labels:
+        app: gravity-worker
+        component: worker
+    spec:
+      containers:
+        - name: worker
+          image: gravity-anchor:latest
+          command: ["celery", "-A", "scaling.worker_pool", "worker", "--loglevel=info", "--concurrency=4"]
+          env:
+            - name: PROJECT_ANCHOR_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gravity-secrets
+                  key: database-url
+            - name: REDIS_URL
+              value: "redis://redis-svc.gravity:6379/0"
+            - name: PROJECT_ANCHOR_ENV
+              value: "production"
+            - name: PYTHONIOENCODING
+              value: "utf-8"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "2000m"
+---
+# ═══════════════════════════════════════════════════════════════════
+# Horizontal Pod Autoscaler — Workers
+# Scale 2 → 10 pods based on CPU utilization
+# ═══════════════════════════════════════════════════════════════════
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gravity-worker-hpa
+  namespace: gravity
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gravity-worker
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 120
+---
+# ═══════════════════════════════════════════════════════════════════
+# Celery Beat Scheduler (single instance)
+# ═══════════════════════════════════════════════════════════════════
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gravity-scheduler
+  namespace: gravity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gravity-scheduler
+  template:
+    metadata:
+      labels:
+        app: gravity-scheduler
+    spec:
+      containers:
+        - name: beat
+          image: gravity-anchor:latest
+          command: ["celery", "-A", "scaling.worker_pool", "beat", "--loglevel=info"]
+          env:
+            - name: REDIS_URL
+              value: "redis://redis-svc.gravity:6379/0"
+            - name: PROJECT_ANCHOR_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

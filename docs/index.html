@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GRAVITY- | Project Anchor</title>
+  <meta name="description" content="Forensic Research Aggregation &amp; Epistemic Intelligence System — 6-phase pipeline for data collection, cryptographic integrity, mathematical framework, quantitative scoring, temporal dynamics, and source intelligence."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚓</text></svg>"/>
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border: #30363d;
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --accent-blue: #58a6ff;
+      --accent-green: #2ea043;
+      --accent-yellow: #d29922;
+      --accent-orange: #f0883e;
+      --accent-red: #f85149;
+      --accent-purple: #a371f7;
+      --accent-cyan: #65c2cb;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Hero ─────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: 6px;
+      color: var(--accent-blue);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 12px;
+    }
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+    .hero .case-tag {
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid var(--accent-blue);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      margin-bottom: 30px;
+    }
+
+    /* ── Badges ────────────────────────────── */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .badge .label {
+      padding: 4px 8px;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+    .badge .value {
+      padding: 4px 10px;
+      color: #fff;
+    }
+
+    /* ── Stats Grid ────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      margin: -30px auto 40px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'Courier New', monospace;
+    }
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* ── Section ───────────────────────────── */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .section-header .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .section-header .tag {
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Phase Cards ───────────────────────── */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .phase-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .phase-card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .phase-card .phase-stripe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    .phase-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      padding-left: 12px;
+    }
+    .phase-card .desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding-left: 12px;
+      margin-bottom: 14px;
+    }
+    .phase-card .module-list {
+      list-style: none;
+      padding-left: 12px;
+    }
+    .phase-card .module-list li {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      padding: 3px 0;
+      font-family: 'Courier New', monospace;
+    }
+    .phase-card .module-list li::before {
+      content: '▸ ';
+      opacity: 0.5;
+    }
+    .phase-card .phase-stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      padding-left: 12px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .phase-card .phase-stats span {
+      font-weight: 600;
+    }
+
+    /* ── Architecture Diagram ──────────────── */
+    .arch-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 30px 0;
+    }
+    .arch-stage {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      width: 100%;
+      max-width: 600px;
+      transition: transform 0.2s;
+    }
+    .arch-stage:hover { transform: scale(1.02); }
+    .arch-arrow {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .arch-stage .emoji { font-size: 1.4rem; }
+    .arch-stage .name { font-weight: 600; flex: 1; }
+    .arch-stage .detail {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Technology Table ───────────────────── */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .tech-table thead th {
+      background: var(--bg-tertiary);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .tech-table tbody td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .tech-table tbody tr:last-child td { border-bottom: none; }
+    .tech-table tbody tr:hover { background: rgba(88,166,255,0.04); }
+    .tech-table .mono {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--accent-cyan);
+    }
+
+    /* ── CLI Section ───────────────────────── */
+    .cli-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .cli-block summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 4px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cli-block summary::-webkit-details-marker { display: none; }
+    .cli-block summary::before {
+      content: '▶';
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      color: var(--text-secondary);
+    }
+    .cli-block[open] summary::before { transform: rotate(90deg); }
+    .cli-block pre {
+      margin-top: 12px;
+      padding: 14px;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      overflow-x: auto;
+      line-height: 1.8;
+      color: var(--accent-cyan);
+    }
+
+    /* ── Scaling Section ───────────────────── */
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .scale-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.3s;
+    }
+    .scale-card:hover { border-color: var(--accent-purple); }
+    .scale-card h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scale-card p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .scale-card code {
+      background: var(--bg-primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+    }
+
+    /* ── Footer ────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+    }
+    footer a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ────────────────────────── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; letter-spacing: 3px; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .phase-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ HERO -->
+<header class="hero">
+  <div class="case-tag">CASE: Project Anchor — August 12 Gravity Event — Thomas Webb</div>
+  <h1>GRAVITY-</h1>
+  <p class="subtitle">
+    Forensic Research Aggregation &amp; Epistemic Intelligence System.<br/>
+    A six-phase pipeline that collects, correlates, scores, and tracks publicly available information with cryptographic integrity guarantees.
+  </p>
+  <div class="badges">
+    <span class="badge"><span class="label">Python</span><span class="value" style="background:#3776AB">3.11+</span></span>
+    <span class="badge"><span class="label">Tests</span><span class="value" style="background:#2ea043">284</span></span>
+    <span class="badge"><span class="label">CLI</span><span class="value" style="background:#58a6ff">77</span></span>
+    <span class="badge"><span class="label">Tables</span><span class="value" style="background:#f0883e">33</span></span>
+    <span class="badge"><span class="label">Phases</span><span class="value" style="background:#a371f7">6</span></span>
+    <span class="badge"><span class="label">IPFS</span><span class="value" style="background:#65c2cb">✓</span></span>
+    <span class="badge"><span class="label">Crypto</span><span class="value" style="background:#d63384">Ed25519</span></span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════ STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-blue)">36</div>
+    <div class="label">Modules</div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-green)">284</div>
+    <div class="label">Tests</div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-orange)">33</div>
+    <div class="label">DB Tables</div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-cyan)">77</div>
+    <div class="label">CLI Commands</div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-purple)">6</div>
+    <div class="label">Phases</div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="color:var(--accent-red)">23K+</div>
+    <div class="label">Lines of Code</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(88,166,255,0.12);color:var(--accent-blue)">⚙</div>
+    <h2>System Architecture</h2>
+    <span class="tag" style="background:rgba(88,166,255,0.15);color:var(--accent-blue)">PIPELINE</span>
+  </div>
+
+  <div class="arch-flow">
+    <div class="arch-stage" style="border-left:3px solid var(--text-secondary)">
+      <span class="emoji">📥</span>
+      <span class="name">Data Sources</span>
+      <span class="detail">Reddit · Wayback · Gov · Academic · PDF · FOIA</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-green)">
+      <span class="emoji">🟢</span>
+      <span class="name">Phase I — Collection</span>
+      <span class="detail">8 modules · 9 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-blue)">
+      <span class="emoji">🔵</span>
+      <span class="name">Phase II — Integrity</span>
+      <span class="detail">6 modules · 24 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-yellow)">
+      <span class="emoji">🟡</span>
+      <span class="name">Phase III — Math</span>
+      <span class="detail">5 modules · 34 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-orange)">
+      <span class="emoji">🟠</span>
+      <span class="name">Phase IV — Scoring</span>
+      <span class="detail">6 modules · 42 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-red)">
+      <span class="emoji">🔴</span>
+      <span class="name">Phase V — Temporal</span>
+      <span class="detail">6 modules · 75 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-purple)">
+      <span class="emoji">🟣</span>
+      <span class="name">Phase VI — Intelligence</span>
+      <span class="detail">5 modules · 100 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--text-secondary)">
+      <span class="emoji">💾</span>
+      <span class="name">Storage Layer</span>
+      <span class="detail">SQLite (33 tables) · IPFS · Logs</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid var(--accent-cyan)">
+      <span class="emoji">📤</span>
+      <span class="name">Output</span>
+      <span class="detail">Reports · CLI · Dashboard</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ PHASES -->
+<section id="phases">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(46,160,67,0.12);color:var(--accent-green)">◉</div>
+    <h2>Six-Phase Pipeline</h2>
+    <span class="tag" style="background:rgba(46,160,67,0.15);color:var(--accent-green)">CORE</span>
+  </div>
+
+  <div class="phase-grid">
+    <!-- Phase I -->
+    <div class="phase-card" style="border-color:rgba(46,160,67,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-green)"></div>
+      <h3 style="color:var(--accent-green)">Phase I — Research &amp; Collection</h3>
+      <p class="desc">Multi-source data acquisition with physics-aware analysis and NLP correlation</p>
+      <ul class="module-list">
+        <li>web_search_scraper.py</li>
+        <li>reddit_scraper.py</li>
+        <li>wayback_scraper.py</li>
+        <li>pdf_analyzer.py</li>
+        <li>gravity_engine.py / wave_engine.py</li>
+        <li>narrative_analyzer.py</li>
+        <li>ipfs_client.py / evidence_archiver.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-green)">8 modules</span> ·
+        <span>9 tests</span> ·
+        <span>3 tables</span> ·
+        <span>14 CLI</span>
+      </div>
+    </div>
+
+    <!-- Phase II -->
+    <div class="phase-card" style="border-color:rgba(88,166,255,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-blue)"></div>
+      <h3 style="color:var(--accent-blue)">Phase II — Cryptographic Integrity</h3>
+      <p class="desc">Ed25519 signatures, Merkle trees, FOIA forensics, audit generation</p>
+      <ul class="module-list">
+        <li>signature_manager.py</li>
+        <li>merkle_snapshot.py</li>
+        <li>foia_ingester.py</li>
+        <li>document_forensics.py</li>
+        <li>audit_generator.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-blue)">6 modules</span> ·
+        <span>24 tests</span> ·
+        <span>5 tables</span> ·
+        <span>14 CLI</span>
+      </div>
+    </div>
+
+    <!-- Phase III -->
+    <div class="phase-card" style="border-color:rgba(210,153,34,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-yellow)"></div>
+      <h3 style="color:var(--accent-yellow)">Phase III — Mathematical Framework</h3>
+      <p class="desc">Equation parsing with SymPy CAS, dimensional analysis, claim-evidence graph</p>
+      <ul class="module-list">
+        <li>equation_parser.py</li>
+        <li>dimensional_analyzer.py</li>
+        <li>symbolic_refactor.py</li>
+        <li>derivation_logger.py</li>
+        <li>claim_graph.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-yellow)">5 modules</span> ·
+        <span>34 tests</span> ·
+        <span>5 tables</span> ·
+        <span>15 CLI</span>
+      </div>
+    </div>
+
+    <!-- Phase IV -->
+    <div class="phase-card" style="border-color:rgba(240,136,62,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-orange)"></div>
+      <h3 style="color:var(--accent-orange)">Phase IV — Quantitative Scoring</h3>
+      <p class="desc">Bayesian confidence, mutation entropy, citation density, contradiction analysis</p>
+      <ul class="module-list">
+        <li>confidence_scorer.py</li>
+        <li>mutation_entropy.py</li>
+        <li>citation_density.py</li>
+        <li>contradiction_analyzer.py</li>
+        <li>claim_scoring_report.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-orange)">6 modules</span> ·
+        <span>42 tests</span> ·
+        <span>6 tables</span> ·
+        <span>10 CLI</span>
+      </div>
+    </div>
+
+    <!-- Phase V -->
+    <div class="phase-card" style="border-color:rgba(248,81,73,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-red)"></div>
+      <h3 style="color:var(--accent-red)">Phase V — Temporal Dynamics</h3>
+      <p class="desc">Confidence timelines, entropy trends, drift kinematics, stability classification</p>
+      <ul class="module-list">
+        <li>confidence_timeline.py</li>
+        <li>entropy_trend.py</li>
+        <li>drift_kinematics.py</li>
+        <li>stability_classifier.py</li>
+        <li>alert_engine.py</li>
+        <li>lifecycle_report.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-red)">6 modules</span> ·
+        <span>75 tests</span> ·
+        <span>7 tables</span> ·
+        <span>12 CLI</span>
+      </div>
+    </div>
+
+    <!-- Phase VI -->
+    <div class="phase-card" style="border-color:rgba(163,113,247,0.3)">
+      <div class="phase-stripe" style="background:var(--accent-purple)"></div>
+      <h3 style="color:var(--accent-purple)">Phase VI — Source Intelligence</h3>
+      <p class="desc">Reputation scoring, influence networks, coordination detection, deep provenance</p>
+      <ul class="module-list">
+        <li>source_reputation.py</li>
+        <li>influence_network.py</li>
+        <li>coordination_detector.py</li>
+        <li>provenance_deep.py</li>
+        <li>source_forensics_report.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:var(--accent-purple)">5 modules</span> ·
+        <span>100 tests</span> ·
+        <span>7 tables</span> ·
+        <span>12 CLI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ TECH -->
+<section id="technology">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(101,194,203,0.12);color:var(--accent-cyan)">⊞</div>
+    <h2>Technology Stack</h2>
+    <span class="tag" style="background:rgba(101,194,203,0.15);color:var(--accent-cyan)">STACK</span>
+  </div>
+
+  <table class="tech-table">
+    <thead>
+      <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Language</td><td class="mono">Python 3.11+</td><td>Core runtime</td></tr>
+      <tr><td>Database</td><td class="mono">SQLite (WAL mode)</td><td>33-table schema, zero-config persistence</td></tr>
+      <tr><td>Cryptography</td><td class="mono">Ed25519 (cryptography 46.0)</td><td>Digital signatures on all records</td></tr>
+      <tr><td>CAS</td><td class="mono">SymPy 1.14</td><td>Equation parsing, symbolic refactoring</td></tr>
+      <tr><td>Graph Analysis</td><td class="mono">NetworkX 3.1+</td><td>Claim graphs, influence networks</td></tr>
+      <tr><td>NLP</td><td class="mono">NLTK + scikit-learn</td><td>TF-IDF cosine similarity, narrative extraction</td></tr>
+      <tr><td>Visualization</td><td class="mono">Plotly + Dash</td><td>Interactive charts, static HTML export</td></tr>
+      <tr><td>IPFS</td><td class="mono">Kubo v0.39+ (HTTP RPC)</td><td>Evidence archival, proof chain, IPNS</td></tr>
+      <tr><td>PDF Analysis</td><td class="mono">PyMuPDF + pdfminer.six</td><td>Equation extraction, document forensics</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ CLI -->
+<section id="cli">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(240,136,62,0.12);color:var(--accent-orange)">❯</div>
+    <h2>CLI Reference</h2>
+    <span class="tag" style="background:rgba(240,136,62,0.15);color:var(--accent-orange)">77 COMMANDS</span>
+  </div>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-green)">🟢</span> Phase I — Collection (14 commands)</summary>
+    <pre>python main.py --search               # Run web search collection
+python main.py --reddit               # Scrape Reddit discussions
+python main.py --wayback              # Query Wayback Machine snapshots
+python main.py --analyze-pdf &lt;path&gt;   # Extract equations from PDF
+python main.py --gravity-sim          # Run gravity simulation
+python main.py --wave-sim             # Run wave interference sim
+python main.py --nlp-analyze          # NLP narrative analysis
+python main.py --ipfs-add &lt;file&gt;      # Pin file to IPFS
+python main.py --ipfs-get &lt;cid&gt;       # Retrieve from IPFS
+python main.py --ipfs-pin-status      # Check pin status
+python main.py --evidence-archive     # Archive evidence to IPFS
+python main.py --dashboard            # Launch interactive dashboard
+python main.py --export-html          # Export static HTML report
+python main.py --status               # System status overview</pre>
+  </details>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-blue)">🔵</span> Phase II — Integrity (14 commands)</summary>
+    <pre>python main.py --keygen               # Generate Ed25519 keypair
+python main.py --keys                 # List all keypairs
+python main.py --sign-record &lt;id&gt;     # Sign database record
+python main.py --verify-record &lt;id&gt;   # Verify record signature
+python main.py --merkle-snapshot      # Create Merkle tree snapshot
+python main.py --merkle-verify        # Verify Merkle integrity
+python main.py --foia-ingest &lt;path&gt;   # Ingest FOIA document
+python main.py --foia-list            # List FOIA documents
+python main.py --foia-forensics &lt;id&gt;  # Run document forensics
+python main.py --audit-report         # Generate full audit
+python main.py --proof-chain-add      # Add to IPFS proof chain
+python main.py --proof-chain-verify   # Verify proof chain
+python main.py --ipns-publish         # Publish to IPNS
+python main.py --ipns-resolve         # Resolve IPNS name</pre>
+  </details>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-yellow)">🟡</span> Phase III — Math Framework (15 commands)</summary>
+    <pre>python main.py --parse-equation &lt;eq&gt;  # Parse mathematical equation
+python main.py --list-equations       # List stored equations
+python main.py --dimensional-check    # Run dimensional analysis
+python main.py --symbolic-refactor    # SymPy symbolic refactoring
+python main.py --derivation-log       # View derivation history
+python main.py --claim-add &lt;text&gt;     # Add claim to graph
+python main.py --evidence-link        # Link evidence to claim
+python main.py --claim-graph          # Display claim graph
+python main.py --claim-search &lt;q&gt;     # Search claims
+python main.py --cross-ref-gov        # Cross-reference government
+python main.py --cross-ref-academic   # Cross-reference academic
+python main.py --knowledge-base       # Taxonomy knowledge base
+python main.py --equation-audit       # Equation audit report
+python main.py --scientist-cases      # Historical case comparisons
+python main.py --tesla-module         # Tesla research module</pre>
+  </details>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-orange)">🟠</span> Phase IV — Scoring (10 commands)</summary>
+    <pre>python main.py --score-claim &lt;id&gt;     # Score individual claim
+python main.py --score-all            # Score all claims
+python main.py --entropy-calc         # Calculate mutation entropy
+python main.py --citation-density     # Citation density analysis
+python main.py --contradictions       # Detect contradictions
+python main.py --propagation-graph    # Build propagation graph
+python main.py --propagation-track    # Track claim propagation
+python main.py --claim-scoring-report # Full scoring report
+python main.py --confidence-matrix    # Confidence score matrix
+python main.py --score-summary        # Summary statistics</pre>
+  </details>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-red)">🔴</span> Phase V — Temporal (12 commands)</summary>
+    <pre>python main.py --timeline &lt;claim_id&gt;  # Confidence timeline
+python main.py --timeline-all         # All claim timelines
+python main.py --entropy-trend        # Entropy trend analysis
+python main.py --drift-analysis       # Drift kinematics analysis
+python main.py --drift-velocity       # Claim drift velocity
+python main.py --stability-classify   # Classify claim stability
+python main.py --stability-all        # Classify all claims
+python main.py --alerts               # Check alert triggers
+python main.py --alert-history        # View alert history
+python main.py --alert-config         # Configure alert thresholds
+python main.py --lifecycle-report     # Full lifecycle report
+python main.py --temporal-summary     # Temporal dynamics summary</pre>
+  </details>
+
+  <details class="cli-block">
+    <summary><span style="color:var(--accent-purple)">🟣</span> Phase VI — Intelligence (12 commands)</summary>
+    <pre>python main.py --source-reputation    # Score source reputation
+python main.py --source-list          # List all scored sources
+python main.py --influence-network    # Build influence network
+python main.py --influence-rank       # Rank by influence
+python main.py --coordination-detect  # Detect coordination
+python main.py --coordination-report  # Coordination report
+python main.py --provenance-trace &lt;id&gt;# Deep provenance trace
+python main.py --provenance-chain     # Full provenance chain
+python main.py --source-forensics     # Source forensics report
+python main.py --network-export       # Export network (GraphML)
+python main.py --intelligence-brief   # Intelligence briefing
+python main.py --intel-summary        # Source intel summary</pre>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ SCALING -->
+<section id="scaling">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(163,113,247,0.12);color:var(--accent-purple)">⬡</div>
+    <h2>Scaling Architecture</h2>
+    <span class="tag" style="background:rgba(163,113,247,0.15);color:var(--accent-purple)">SCALE</span>
+  </div>
+
+  <div class="scale-grid">
+    <div class="scale-card">
+      <h4>🐳 Container Orchestration</h4>
+      <p>Docker multi-stage builds with <code>Dockerfile</code> and <code>docker-compose.yml</code>. Separate containers for API, workers, database, and IPFS node. Kubernetes manifests in <code>k8s/</code> for production clusters.</p>
+    </div>
+    <div class="scale-card">
+      <h4>⚡ Async Worker Pool</h4>
+      <p>Celery-based task queue with Redis broker for parallel data collection, scoring, and analysis. Each phase can scale workers independently via <code>scaling/worker_pool.py</code>.</p>
+    </div>
+    <div class="scale-card">
+      <h4>🗄️ Database Migration</h4>
+      <p>Pluggable database backend supporting SQLite → PostgreSQL migration. Connection pooling via SQLAlchemy. Schema versioning with Alembic in <code>scaling/db_migration.py</code>.</p>
+    </div>
+    <div class="scale-card">
+      <h4>🔀 REST API Layer</h4>
+      <p>FastAPI application in <code>scaling/api.py</code> exposing all 77 CLI commands as REST endpoints. OpenAPI docs at <code>/docs</code>. JWT authentication and rate limiting.</p>
+    </div>
+    <div class="scale-card">
+      <h4>📊 Observability</h4>
+      <p>Prometheus metrics, structured JSON logging, health checks, and Grafana dashboard templates. Distributed tracing support with OpenTelemetry.</p>
+    </div>
+    <div class="scale-card">
+      <h4>🔄 CI/CD Pipeline</h4>
+      <p>GitHub Actions workflow running 284 tests on every push. Automated Docker image builds, security scanning, and deployment to staging/production environments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ QUICKSTART -->
+<section id="quickstart">
+  <div class="section-header">
+    <div class="icon" style="background:rgba(46,160,67,0.12);color:var(--accent-green)">▶</div>
+    <h2>Quick Start</h2>
+  </div>
+
+  <div class="cli-block">
+    <summary style="cursor:default;font-weight:600;font-size:0.95rem;padding:4px 0;display:flex;align-items:center;gap:10px;">
+      <span style="color:var(--accent-green)">⚡</span> Installation &amp; First Run
+    </summary>
+    <pre style="margin-top:12px;padding:14px;background:var(--bg-primary);border-radius:6px;font-size:0.82rem;overflow-x:auto;line-height:1.8;color:var(--accent-cyan)">
+git clone https://github.com/FTHTrading/Gravity-.git
+cd Gravity-
+python -m venv venv
+venv\Scripts\activate        # Windows
+pip install -r requirements.txt
+python main.py --status      # System check
+python main.py --help        # See all 77 commands</pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <p>
+    <strong>GRAVITY-</strong> &nbsp;·&nbsp;
+    <a href="https://github.com/FTHTrading/Gravity-">GitHub Repository</a> &nbsp;·&nbsp;
+    Project Anchor Research System
+  </p>
+  <p style="margin-top:8px;font-size:0.75rem;color:var(--text-secondary)">
+    This system does not confirm or deny claims. It gathers, organizes, correlates, scores, and tracks data.
+  </p>
+</footer>
+
+</body>
+</html>

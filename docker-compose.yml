@@ -1,0 +1,140 @@
+# ═══════════════════════════════════════════════════════════════════
+# GRAVITY- | Project Anchor — Docker Compose
+# ═══════════════════════════════════════════════════════════════════
+# Usage:
+#   docker compose up -d          # Start all services
+#   docker compose up api         # API only
+#   docker compose up worker      # Workers only
+#   docker compose logs -f api    # Follow API logs
+# ═══════════════════════════════════════════════════════════════════
+
+services:
+  # ── API Server ─────────────────────────────────────────────────
+  api:
+    build: .
+    command: uvicorn scaling.api:app --host 0.0.0.0 --port 8000 --workers 4
+    ports:
+      - "8000:8000"
+    environment:
+      - PROJECT_ANCHOR_DB_URL=postgresql://anchor:anchor@postgres:5432/gravity
+      - REDIS_URL=redis://redis:6379/0
+      - PYTHONIOENCODING=utf-8
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+    restart: unless-stopped
+
+  # ── Celery Workers ─────────────────────────────────────────────
+  worker:
+    build: .
+    command: celery -A scaling.worker_pool worker --loglevel=info --concurrency=4
+    environment:
+      - PROJECT_ANCHOR_DB_URL=postgresql://anchor:anchor@postgres:5432/gravity
+      - REDIS_URL=redis://redis:6379/0
+      - PYTHONIOENCODING=utf-8
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 1G
+          cpus: "2.0"
+    restart: unless-stopped
+
+  # ── Celery Beat (Scheduler) ────────────────────────────────────
+  scheduler:
+    build: .
+    command: celery -A scaling.worker_pool beat --loglevel=info
+    environment:
+      - PROJECT_ANCHOR_DB_URL=postgresql://anchor:anchor@postgres:5432/gravity
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - worker
+    restart: unless-stopped
+
+  # ── PostgreSQL ─────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: gravity
+      POSTGRES_USER: anchor
+      POSTGRES_PASSWORD: anchor
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anchor -d gravity"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    restart: unless-stopped
+
+  # ── Redis (Task Queue Broker) ──────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    restart: unless-stopped
+
+  # ── IPFS Node ──────────────────────────────────────────────────
+  ipfs:
+    image: ipfs/kubo:v0.39.0
+    ports:
+      - "4001:4001"    # P2P
+      - "5001:5001"    # RPC API
+      - "8080:8080"    # Gateway
+    volumes:
+      - ipfsdata:/data/ipfs
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    restart: unless-stopped
+
+  # ── Prometheus (Metrics) ───────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./scaling/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+  ipfsdata:

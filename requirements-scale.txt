@@ -1,0 +1,40 @@
+# ══════════════════════════════════════════════════════════════
+# GRAVITY- | Scaling Dependencies (production extras)
+# Install: pip install -r requirements-scale.txt
+# ══════════════════════════════════════════════════════════════
+
+# Everything from base
+-r requirements.txt
+
+# Cryptography (pinned)
+cryptography>=42.0
+
+# Symbolic Math
+sympy>=1.14.0
+
+# ── REST API ──────────────────────────────────────────────────
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+python-jose[cryptography]>=3.3.0     # JWT
+python-multipart>=0.0.6              # form uploads
+
+# ── Task Queue ────────────────────────────────────────────────
+celery[redis]>=5.3.0
+redis>=5.0.0
+
+# ── PostgreSQL ────────────────────────────────────────────────
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+alembic>=1.13.0
+
+# ── Observability ─────────────────────────────────────────────
+prometheus-client>=0.19.0
+opentelemetry-api>=1.22.0
+opentelemetry-sdk>=1.22.0
+
+# ── Testing ───────────────────────────────────────────────────
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.23.0
+httpx>=0.26.0                        # async test client for FastAPI

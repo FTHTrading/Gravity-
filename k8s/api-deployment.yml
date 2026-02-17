@@ -1,0 +1,95 @@
+# ═══════════════════════════════════════════════════════════════════
+# GRAVITY- | API Deployment + Service
+# ═══════════════════════════════════════════════════════════════════
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gravity-api
+  namespace: gravity
+  labels:
+    app: gravity-api
+    component: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gravity-api
+  template:
+    metadata:
+      labels:
+        app: gravity-api
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: gravity-anchor:latest
+          command: ["uvicorn", "scaling.api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: PROJECT_ANCHOR_DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gravity-secrets
+                  key: database-url
+            - name: REDIS_URL
+              value: "redis://redis-svc.gravity:6379/0"
+            - name: PROJECT_ANCHOR_ENV
+              value: "production"
+            - name: PYTHONIOENCODING
+              value: "utf-8"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gravity-api-svc
+  namespace: gravity
+spec:
+  selector:
+    app: gravity-api
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gravity-ingress
+  namespace: gravity
+  annotations:
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+spec:
+  rules:
+    - host: gravity.fthtrading.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gravity-api-svc
+                port:
+                  number: 80
