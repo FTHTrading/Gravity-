@@ -1,0 +1,32 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Keys (sensitive cryptographic material)
+data/keys/
+
+# Logs
+logs/
+
+# Reports (generated)
+reports/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
