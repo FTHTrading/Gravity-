@@ -405,14 +405,15 @@
   <h1>GRAVITY-</h1>
   <p class="subtitle">
     Forensic Research Aggregation &amp; Epistemic Intelligence System.<br/>
-    A six-phase pipeline that collects, correlates, scores, and tracks publicly available information with cryptographic integrity guarantees.
+    A seven-phase pipeline that collects, correlates, scores, tracks, and formally verifies publicly available information with cryptographic integrity guarantees and blockchain anchoring.
   </p>
   <div class="badges">
     <span class="badge"><span class="label">Python</span><span class="value" style="background:#3776AB">3.11+</span></span>
-    <span class="badge"><span class="label">Tests</span><span class="value" style="background:#2ea043">284</span></span>
-    <span class="badge"><span class="label">CLI</span><span class="value" style="background:#58a6ff">77</span></span>
-    <span class="badge"><span class="label">Tables</span><span class="value" style="background:#f0883e">33</span></span>
-    <span class="badge"><span class="label">Phases</span><span class="value" style="background:#a371f7">6</span></span>
+    <span class="badge"><span class="label">Rust</span><span class="value" style="background:#dea584">CosmWasm</span></span>
+    <span class="badge"><span class="label">Tests</span><span class="value" style="background:#2ea043">390</span></span>
+    <span class="badge"><span class="label">CLI</span><span class="value" style="background:#58a6ff">87</span></span>
+    <span class="badge"><span class="label">Tables</span><span class="value" style="background:#f0883e">39</span></span>
+    <span class="badge"><span class="label">Phases</span><span class="value" style="background:#a371f7">7</span></span>
     <span class="badge"><span class="label">IPFS</span><span class="value" style="background:#65c2cb">✓</span></span>
     <span class="badge"><span class="label">Crypto</span><span class="value" style="background:#d63384">Ed25519</span></span>
   </div>
@@ -421,27 +422,27 @@
 <!-- ═══════════════════════════════════════════════════════════════ STATS -->
 <div class="stats">
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-blue)">36</div>
+    <div class="number" style="color:var(--accent-blue)">50</div>
     <div class="label">Modules</div>
   </div>
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-green)">284</div>
+    <div class="number" style="color:var(--accent-green)">390</div>
     <div class="label">Tests</div>
   </div>
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-orange)">33</div>
+    <div class="number" style="color:var(--accent-orange)">39</div>
     <div class="label">DB Tables</div>
   </div>
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-cyan)">77</div>
+    <div class="number" style="color:var(--accent-cyan)">87</div>
     <div class="label">CLI Commands</div>
   </div>
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-purple)">6</div>
+    <div class="number" style="color:var(--accent-purple)">7</div>
     <div class="label">Phases</div>
   </div>
   <div class="stat-card">
-    <div class="number" style="color:var(--accent-red)">23K+</div>
+    <div class="number" style="color:var(--accent-red)">29K+</div>
     <div class="label">Lines of Code</div>
   </div>
 </div>
@@ -497,10 +498,16 @@
       <span class="detail">5 modules · 100 tests</span>
     </div>
     <div class="arch-arrow">▼</div>
+    <div class="arch-stage" style="border-left:3px solid #dea584">
+      <span class="emoji">🦀</span>
+      <span class="name">Phase VII — Scientific Optimization</span>
+      <span class="detail">14 modules · 106 tests</span>
+    </div>
+    <div class="arch-arrow">▼</div>
     <div class="arch-stage" style="border-left:3px solid var(--text-secondary)">
       <span class="emoji">💾</span>
       <span class="name">Storage Layer</span>
-      <span class="detail">SQLite (33 tables) · IPFS · Logs</span>
+      <span class="detail">SQLite (39 tables) · IPFS · Blockchain</span>
     </div>
     <div class="arch-arrow">▼</div>
     <div class="arch-stage" style="border-left:3px solid var(--accent-cyan)">
@@ -515,7 +522,7 @@
 <section id="phases">
   <div class="section-header">
     <div class="icon" style="background:rgba(46,160,67,0.12);color:var(--accent-green)">◉</div>
-    <h2>Six-Phase Pipeline</h2>
+    <h2>Seven-Phase Pipeline</h2>
     <span class="tag" style="background:rgba(46,160,67,0.15);color:var(--accent-green)">CORE</span>
   </div>
 
@@ -642,6 +649,30 @@
         <span>12 CLI</span>
       </div>
     </div>
+    <!-- Phase VII -->
+    <div class="phase-card" style="border-color:rgba(222,165,132,0.3)">
+      <div class="phase-stripe" style="background:#dea584"></div>
+      <h3 style="color:#dea584">Phase VII — Scientific Optimization</h3>
+      <p class="desc">Rust smart contracts, formal proofs, stability analysis, blockchain anchoring, performance optimization</p>
+      <ul class="module-list">
+        <li>missing_factor_detector.py</li>
+        <li>stability_analyzer.py (Jacobian/eigenvalues)</li>
+        <li>canonical_reference_map.py (15 equations)</li>
+        <li>formal_proof_export.py (SMT-LIB 2.0)</li>
+        <li>solution_optimizer.py · solvability_index.py</li>
+        <li>scientific_registry.py (12 contributors)</li>
+        <li>rust_anchor_bridge.py → CosmWasm</li>
+        <li>async_executor.py · cache_manager.py</li>
+        <li>benchmark_suite.py</li>
+      </ul>
+      <div class="phase-stats">
+        <span style="color:#dea584">14 modules</span> ·
+        <span>106 tests</span> ·
+        <span>6 tables</span> ·
+        <span>10 CLI</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -659,14 +690,16 @@
     </thead>
     <tbody>
       <tr><td>Language</td><td class="mono">Python 3.11+</td><td>Core runtime</td></tr>
-      <tr><td>Database</td><td class="mono">SQLite (WAL mode)</td><td>33-table schema, zero-config persistence</td></tr>
+      <tr><td>Smart Contracts</td><td class="mono">Rust / CosmWasm 1.5</td><td>Deterministic hash anchoring (WASM)</td></tr>
+      <tr><td>Database</td><td class="mono">SQLite (WAL mode)</td><td>39-table schema, zero-config persistence</td></tr>
       <tr><td>Cryptography</td><td class="mono">Ed25519 (cryptography 46.0)</td><td>Digital signatures on all records</td></tr>
-      <tr><td>CAS</td><td class="mono">SymPy 1.14</td><td>Equation parsing, symbolic refactoring</td></tr>
+      <tr><td>CAS</td><td class="mono">SymPy 1.14</td><td>Equation parsing, stability analysis, formal proofs</td></tr>
       <tr><td>Graph Analysis</td><td class="mono">NetworkX 3.1+</td><td>Claim graphs, influence networks</td></tr>
       <tr><td>NLP</td><td class="mono">NLTK + scikit-learn</td><td>TF-IDF cosine similarity, narrative extraction</td></tr>
       <tr><td>Visualization</td><td class="mono">Plotly + Dash</td><td>Interactive charts, static HTML export</td></tr>
       <tr><td>IPFS</td><td class="mono">Kubo v0.39+ (HTTP RPC)</td><td>Evidence archival, proof chain, IPNS</td></tr>
       <tr><td>PDF Analysis</td><td class="mono">PyMuPDF + pdfminer.six</td><td>Equation extraction, document forensics</td></tr>
+      <tr><td>Blockchain</td><td class="mono">CosmWasm endpoint</td><td>Merkle root, claim score, proof anchoring</td></tr>
     </tbody>
   </table>
 </section>
@@ -676,7 +709,7 @@
   <div class="section-header">
     <div class="icon" style="background:rgba(240,136,62,0.12);color:var(--accent-orange)">❯</div>
     <h2>CLI Reference</h2>
-    <span class="tag" style="background:rgba(240,136,62,0.15);color:var(--accent-orange)">77 COMMANDS</span>
+    <span class="tag" style="background:rgba(240,136,62,0.15);color:var(--accent-orange)">87 COMMANDS</span>
   </div>
 
   <details class="cli-block">
@@ -779,6 +812,20 @@ python main.py --network-export       # Export network (GraphML)
 python main.py --intelligence-brief   # Intelligence briefing
 python main.py --intel-summary        # Source intel summary</pre>
   </details>
+
+  <details class="cli-block">
+    <summary><span style="color:#dea584">🦀</span> Phase VII — Scientific Optimization (10 commands)</summary>
+    <pre>python main.py --detect-missing-factors    # Detect missing equation factors
+python main.py --stability-analysis        # Jacobian/eigenvalue stability
+python main.py --canonical-compare &lt;eq&gt;    # Compare against 15 canonical equations
+python main.py --formal-proof &lt;eq&gt;         # Generate formal proof tree + SMT-LIB
+python main.py --optimize-equation &lt;eq&gt;    # 8-strategy symbolic optimization
+python main.py --solvability-index         # Compute SI = C/(V+1)*(1-S)*D
+python main.py --scientific-registry       # Browse 12+ scientific contributors
+python main.py --anchor-blockchain         # Anchor hashes to blockchain
+python main.py --benchmark-run             # Run performance benchmarks
+python main.py --cache-stats               # View SHA-256 LRU cache stats</pre>
+  </details>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ SCALING -->
@@ -812,7 +859,7 @@ python main.py --intel-summary        # Source intel summary</pre>
     </div>
     <div class="scale-card">
       <h4>🔄 CI/CD Pipeline</h4>
-      <p>GitHub Actions workflow running 284 tests on every push. Automated Docker image builds, security scanning, and deployment to staging/production environments.</p>
+      <p>GitHub Actions workflow running 390 tests on every push. Automated Docker image builds, security scanning, and deployment to staging/production environments.</p>
     </div>
   </div>
 </section>
@@ -835,7 +882,7 @@ python -m venv venv
 venv\Scripts\activate        # Windows
 pip install -r requirements.txt
 python main.py --status      # System check
-python main.py --help        # See all 77 commands</pre>
+python main.py --help        # See all 87 commands</pre>
   </div>
 </section>
 
