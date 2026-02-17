@@ -12,17 +12,18 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.11+"/>
-  <img src="https://img.shields.io/badge/Tests-284_Passing-2ea043?style=flat-square&logo=pytest&logoColor=white" alt="Tests"/>
-  <img src="https://img.shields.io/badge/CLI_Commands-77-58a6ff?style=flat-square&logo=windowsterminal&logoColor=white" alt="CLI"/>
-  <img src="https://img.shields.io/badge/Database-33_Tables-f0883e?style=flat-square&logo=sqlite&logoColor=white" alt="DB"/>
-  <img src="https://img.shields.io/badge/Phases-6_Complete-a371f7?style=flat-square&logo=stackblitz&logoColor=white" alt="Phases"/>
+  <img src="https://img.shields.io/badge/Tests-390_Passing-2ea043?style=flat-square&logo=pytest&logoColor=white" alt="Tests"/>
+  <img src="https://img.shields.io/badge/CLI_Commands-87-58a6ff?style=flat-square&logo=windowsterminal&logoColor=white" alt="CLI"/>
+  <img src="https://img.shields.io/badge/Database-39_Tables-f0883e?style=flat-square&logo=sqlite&logoColor=white" alt="DB"/>
+  <img src="https://img.shields.io/badge/Phases-7_Complete-a371f7?style=flat-square&logo=stackblitz&logoColor=white" alt="Phases"/>
+  <img src="https://img.shields.io/badge/Rust-Smart_Contracts-dea584?style=flat-square&logo=rust&logoColor=white" alt="Rust"/>
   <img src="https://img.shields.io/badge/IPFS-Integrated-65c2cb?style=flat-square&logo=ipfs&logoColor=white" alt="IPFS"/>
   <img src="https://img.shields.io/badge/Crypto-Ed25519-d63384?style=flat-square&logo=letsencrypt&logoColor=white" alt="Crypto"/>
   <img src="https://img.shields.io/badge/License-Proprietary-888?style=flat-square" alt="License"/>
 </p>
 
 <p align="center">
-  <em>A six-phase forensic research operating system that collects, correlates, scores, and tracks<br/>publicly available information with cryptographic integrity guarantees.</em>
+  <em>A seven-phase forensic research operating system that collects, correlates, scores, and tracks<br/>publicly available information with cryptographic integrity and blockchain anchoring guarantees.</em>
 </p>
 
 <p align="center">
@@ -52,11 +53,12 @@
 | 7 | [Phase IV — Quantitative Scoring](#-phase-iv--quantitative-scoring) | 🟩 | Bayesian confidence, entropy, citation density |
 | 8 | [Phase V — Temporal Dynamics](#-phase-v--temporal-dynamics) | 🟩 | Timelines, drift kinematics, stability, alerts |
 | 9 | [Phase VI — Source Intelligence](#-phase-vi--source-intelligence--network-forensics) | 🟩 | Reputation, influence, coordination, provenance |
-| 10 | [CLI Command Reference](#-cli-command-reference) | 🟧 | All 77 commands organized by phase |
-| 11 | [Database Schema](#-database-schema) | 🟪 | 33 tables across 6 phases |
+| 10 | [Phase VII — Scientific Optimization](#-phase-vii--scientific-optimization--blockchain-anchoring) | 🟩 | Math analysis, Rust contracts, blockchain anchoring |
+| 11 | [CLI Command Reference](#-cli-command-reference) | 🟧 | All 87 commands organized by phase |
+| 12 | [Database Schema](#-database-schema) | 🟪 | 39 tables across 7 phases |
 | 12 | [Scoring & Algorithm Reference](#-scoring--algorithm-reference) | 🟥 | Mathematical formulas, weights, thresholds |
 | 13 | [Flow Diagrams](#-flow-diagrams) | 🟥 | Data pipeline, scoring cascade, alert flow |
-| 14 | [Testing](#-testing) | ⬜ | 284 tests, per-phase breakdown |
+| 15 | [Testing](#-testing) | ⬜ | 390 tests, per-phase breakdown |
 | 15 | [IPFS Integration](#-ipfs-integration) | ⬜ | Proof chain, pinning, IPNS workflow |
 | 16 | [Operational Scope & Reproducibility](#-operational-scope--reproducibility) | ⬜ | Legal boundaries, audit trail, portability |
 | 17 | [Quick Start](#-quick-start) | ⬜ | Installation and first run |
@@ -126,15 +128,24 @@ graph TB
         DP[Deep Provenance]
     end
 
+    subgraph PHASE7["⚪ PHASE VII — Scientific Optimization"]
+        direction LR
+        MF[Missing Factors]
+        SA[Stability Analysis]
+        FP[Formal Proofs]
+        BA[Blockchain Anchors]
+    end
+
     subgraph STORAGE["💾 STORAGE LAYER"]
-        DB[(SQLite<br/>33 Tables)]
+        DB[(SQLite<br/>39 Tables)]
         IPFS[(IPFS<br/>Proof Chain)]
         LOG[Logs]
+        CHAIN[(Blockchain<br/>Anchors)]
     end
 
     subgraph OUTPUT["📤 OUTPUT"]
         RPT[Reports]
-        CLI[CLI / 77 Commands]
+        CLI[CLI / 87 Commands]
         DASH[Dashboard]
     end
 
@@ -144,6 +155,7 @@ graph TB
     PHASE3 --> PHASE4
     PHASE4 --> PHASE5
     PHASE5 --> PHASE6
+    PHASE6 --> PHASE7
 
     PHASE1 --> STORAGE
     PHASE2 --> STORAGE
@@ -151,6 +163,7 @@ graph TB
     PHASE4 --> STORAGE
     PHASE5 --> STORAGE
     PHASE6 --> STORAGE
+    PHASE7 --> STORAGE
 
     STORAGE --> OUTPUT
 
@@ -161,6 +174,7 @@ graph TB
     style PHASE4 fill:#2e1a0d,stroke:#f0883e,color:#c9d1d9
     style PHASE5 fill:#2e0d0d,stroke:#f85149,color:#c9d1d9
     style PHASE6 fill:#1f0d2e,stroke:#a371f7,color:#c9d1d9
+    style PHASE7 fill:#1a1a1a,stroke:#8b949e,color:#c9d1d9
     style STORAGE fill:#161b22,stroke:#8b949e,color:#c9d1d9
     style OUTPUT fill:#0d1117,stroke:#58a6ff,color:#c9d1d9
 ```
@@ -646,9 +660,72 @@ flowchart TB
 
 ---
 
+## � Phase VII — Scientific Optimization & Blockchain Anchoring
+
+> Advanced mathematical analysis, formal proof generation, Rust smart contracts, and deterministic on-chain anchoring.
+
+```mermaid
+%%{init: {'theme': 'dark'}}%%
+graph LR
+    subgraph MATH["⚪ Mathematical Expansion"]
+        MFD[Missing Factor<br/>Detector]
+        SO[Solution<br/>Optimizer]
+        SA[Stability<br/>Analyzer]
+        CRM[Canonical<br/>Reference Map]
+        FPE[Formal Proof<br/>Exporter]
+    end
+
+    subgraph OPT["⚪ Optimization Metrics"]
+        SI[Solvability<br/>Index]
+        MES[Model Efficiency<br/>Score]
+        CR[Compression<br/>Ratio]
+    end
+
+    subgraph PERF["⚪ Performance"]
+        AE[Async<br/>Executor]
+        CM[Cache<br/>Manager]
+        BS[Benchmark<br/>Suite]
+    end
+
+    subgraph CHAIN["⚪ Blockchain"]
+        RAB[Rust Anchor<br/>Bridge]
+        RC[Rust Smart<br/>Contracts]
+        REG[Scientific<br/>Registry]
+    end
+
+    MATH --> OPT
+    OPT --> CHAIN
+    PERF --> MATH
+    CHAIN --> DB[(SQLite + Chain)]
+
+    style MATH fill:#1a1a1a,stroke:#8b949e,color:#c9d1d9
+    style OPT fill:#1a1a1a,stroke:#8b949e,color:#c9d1d9
+    style PERF fill:#1a1a1a,stroke:#8b949e,color:#c9d1d9
+    style CHAIN fill:#1a1a1a,stroke:#8b949e,color:#c9d1d9
+```
+
+| # | Module | Description |
+|:-:|--------|-------------|
+| 37 | **Missing Factor Detector** | Detects omitted physical constants (G, c, ℏ, k_B), dimensional inconsistencies, implicit unit assumptions, canonical deviations |
+| 38 | **Solution Optimizer** | 8-strategy simplification (expand, factor, cancel, trigsimp…), compression ratio, overparameterization detection |
+| 39 | **Stability Analyzer** | Jacobian computation, eigenvalue extraction, Lyapunov exponents, stability classification (7 classes) |
+| 40 | **Canonical Reference Map** | 15 canonical equations (Newton → Boltzmann), structural/algebraic comparison, closest-match finder |
+| 41 | **Formal Proof Exporter** | Step-by-step proof trees, SMT-LIB 2.0 export (QF_NRA logic), axiom tracking, DB persistence |
+| 42 | **Scientific Registry** | 12 default contributors (Newton → Coulomb), domain filtering, equation/claim linking, SHA-256 hashing |
+| 43 | **Solvability Index** | Formula: SI = C/(V+1) × (1-S) × D, stability class mapping, tractability interpretation |
+| 44 | **Model Efficiency Score** | Operation count, AST depth, parameter count, normalized cost, efficiency scoring |
+| 45 | **Compression Ratio** | Multi-strategy comparison, best strategy selection, equivalence verification |
+| 46 | **Async Executor** | ThreadPoolExecutor batch processing, deterministic result ordering, error isolation |
+| 47 | **Cache Manager** | SHA-256 keyed LRU cache, TTL expiry, deterministic invalidation, hit/miss statistics |
+| 48 | **Benchmark Suite** | Context-manager timing, psutil memory/CPU tracking, JSON log export, DB persistence |
+| 49 | **Rust Anchor Bridge** | Payloads for merkle_root/claim_score/equation_proof, dry-run mode, receipt verification |
+| 50 | **Rust Smart Contracts** | CosmWasm-compatible contracts: anchor_registry, merkle_anchor, claim_score_anchor, equation_proof_anchor |
+
+---
+
 ## 🟧 CLI Command Reference
 
-> **77 commands** across 6 phases. All invoked via `python main.py`.
+> **87 commands** across 7 phases. All invoked via `python main.py`.
 
 <details>
 <summary><strong>🟢 Phase I — Research & Collection (21 commands)</strong></summary>
@@ -777,11 +854,29 @@ python main.py --quick-source ID           # One-line source intelligence summar
 
 </details>
 
+<details>
+<summary><strong>⚪ Phase VII — Scientific Optimization & Blockchain (10 commands)</strong></summary>
+
+```bash
+python main.py --detect-missing 'm*c**2'        # Detect missing factors in equation
+python main.py --optimize-equation 'x**2+2*x+1' # Optimize / simplify equation
+python main.py --stability-analysis '-x,-2*y'   # Stability analysis (comma-sep system)
+python main.py --formal-proof 'm*c**2'           # Generate formal proof tree + SMT-LIB
+python main.py --solvability 'm*c**2'            # Compute solvability index
+python main.py --efficiency-score 'G*m1*m2/r**2' # Compute model efficiency score
+python main.py --scientist-link 'Newton,42'      # Link scientist to claim ID
+python main.py --anchor-root HASH                # Anchor Merkle root to blockchain
+python main.py --anchor-equation 'm*c**2'        # Anchor equation proof to blockchain
+python main.py --benchmark                       # Run performance benchmarks
+```
+
+</details>
+
 ---
 
 ## 🟪 Database Schema
 
-> **33 tables** in SQLite WAL mode at `data/project_anchor.db`
+> **39 tables** in SQLite WAL mode at `data/project_anchor.db`
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -877,6 +972,20 @@ erDiagram
 | `influence_edges` | Source-to-source amplification edges (shared claims, directionality) |
 | `coordination_events` | Detected temporal coordination clusters (scores, patterns) |
 | `provenance_traces` | Deep provenance traces (origin type, chain depth, confidence) |
+
+</details>
+
+<details>
+<summary><strong>⚪ Phase VII — Scientific Optimization (6 tables)</strong></summary>
+
+| Table | Content |
+|-------|---------|
+| `scientific_registry` | Contributor records (domain, equations, citations, SHA-256) |
+| `equation_stability` | Jacobian, eigenvalues, Lyapunov exponents, stability class |
+| `equation_optimization` | Original/simplified expressions, compression ratio, missing factors |
+| `formal_proofs` | Proof trees (JSON), SMT-LIB exports, axioms, validity flags |
+| `blockchain_anchors` | Anchor payloads, transaction IDs, on-chain hashes, receipt status |
+| `performance_metrics` | Operation timings, memory/CPU usage, benchmark metadata |
 
 </details>
 
@@ -1144,30 +1253,35 @@ flowchart LR
 
 ## ⬜ Testing
 
-> **284 tests** · **6 test suites** · All passing
+> **390 tests** · **10 test suites** · All passing
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
-pie title Test Distribution by Phase (284 total)
+pie title Test Distribution by Phase (390 total)
     "🟢 Phase I : 9" : 9
     "🔵 Phase II : 24" : 24
     "🟡 Phase III : 34" : 34
     "🟠 Phase IV : 42" : 42
     "🔴 Phase V : 75" : 75
     "🟣 Phase VI : 100" : 100
+    "⚪ Phase VII : 106" : 106
 ```
 
 ```bash
 # Run full suite
-python -m pytest tests/ -v                        # 284 tests
+python -m pytest tests/ -v                             # 390 tests
 
 # Run by phase
-python -m pytest tests/test_physics.py -v         # 🟢   9 tests — Physics engine
-python -m pytest tests/test_phase2.py -v          # 🔵  24 tests — Crypto & integrity
-python -m pytest tests/test_phase3.py -v          # 🟡  34 tests — Math & claim graph
-python -m pytest tests/test_phase4.py -v          # 🟠  42 tests — Scoring engine
-python -m pytest tests/test_phase5.py -v          # 🔴  75 tests — Temporal dynamics
-python -m pytest tests/test_phase6.py -v          # 🟣 100 tests — Source intelligence
+python -m pytest tests/test_physics.py -v              # 🟢   9 tests — Physics engine
+python -m pytest tests/test_phase2.py -v               # 🔵  24 tests — Crypto & integrity
+python -m pytest tests/test_phase3.py -v               # 🟡  34 tests — Math & claim graph
+python -m pytest tests/test_phase4.py -v               # 🟠  42 tests — Scoring engine
+python -m pytest tests/test_phase5.py -v               # 🔴  75 tests — Temporal dynamics
+python -m pytest tests/test_phase6.py -v               # 🟣 100 tests — Source intelligence
+python -m pytest tests/test_phase7_math.py -v          # ⚪  40 tests — Math expansion
+python -m pytest tests/test_phase7_anchor.py -v        # ⚪  14 tests — Blockchain anchoring
+python -m pytest tests/test_phase7_registry.py -v      # ⚪  18 tests — Scientific registry
+python -m pytest tests/test_phase7_performance.py -v   # ⚪  34 tests — Performance & optimization
 ```
 
 All tests use `:memory:` SQLite via `PROJECT_ANCHOR_DB` environment variable.

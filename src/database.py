@@ -539,6 +539,123 @@ CREATE INDEX IF NOT EXISTS idx_coord_cluster ON coordination_events(cluster_id);
 CREATE INDEX IF NOT EXISTS idx_coord_score ON coordination_events(coordination_score);
 CREATE INDEX IF NOT EXISTS idx_provtrace_claim ON provenance_traces(claim_id);
 CREATE INDEX IF NOT EXISTS idx_provtrace_origin ON provenance_traces(origin_type);
+
+-- ── Phase VII: Scientific Optimization, Formal Proof & Anchoring ────────
+
+CREATE TABLE IF NOT EXISTS scientific_registry (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    name            TEXT NOT NULL,
+    domain          TEXT NOT NULL,
+    subdomain       TEXT,
+    birth_year      INTEGER,
+    death_year      INTEGER,
+    nationality     TEXT,
+    core_contributions TEXT,
+    key_equations   TEXT,
+    publication_links TEXT,
+    modern_applications TEXT,
+    linked_equation_ids TEXT,
+    linked_claim_ids TEXT,
+    citation_count  INTEGER DEFAULT 0,
+    metadata_json   TEXT,
+    sha256_hash     TEXT,
+    created_at      TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS equation_stability (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    proof_id        INTEGER,
+    equation_name   TEXT NOT NULL,
+    jacobian_json   TEXT,
+    eigenvalues_json TEXT,
+    stability_class TEXT DEFAULT 'unknown',
+    sensitivity_json TEXT,
+    lyapunov_exponent REAL,
+    is_stable       INTEGER DEFAULT 0,
+    notes           TEXT,
+    sha256_hash     TEXT,
+    computed_at     TEXT NOT NULL,
+    FOREIGN KEY (proof_id) REFERENCES equation_proofs(id)
+);
+
+CREATE TABLE IF NOT EXISTS equation_optimization (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    proof_id        INTEGER,
+    equation_name   TEXT NOT NULL,
+    original_expr   TEXT NOT NULL,
+    simplified_expr TEXT,
+    original_complexity INTEGER DEFAULT 0,
+    simplified_complexity INTEGER DEFAULT 0,
+    compression_ratio REAL DEFAULT 0.0,
+    redundant_params TEXT,
+    nondimensional_form TEXT,
+    missing_factors TEXT,
+    dimension_status TEXT DEFAULT 'unknown',
+    notes           TEXT,
+    sha256_hash     TEXT,
+    optimized_at    TEXT NOT NULL,
+    FOREIGN KEY (proof_id) REFERENCES equation_proofs(id)
+);
+
+CREATE TABLE IF NOT EXISTS formal_proofs (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    proof_id        INTEGER,
+    equation_name   TEXT NOT NULL,
+    proof_tree_json TEXT NOT NULL,
+    smt_lib_export  TEXT,
+    proof_format    TEXT DEFAULT 'sympy',
+    axioms_used     TEXT,
+    assumptions     TEXT,
+    conclusion      TEXT,
+    is_valid        INTEGER DEFAULT 1,
+    sha256_hash     TEXT NOT NULL,
+    ipfs_cid        TEXT,
+    signature       TEXT,
+    created_at      TEXT NOT NULL,
+    FOREIGN KEY (proof_id) REFERENCES equation_proofs(id)
+);
+
+CREATE TABLE IF NOT EXISTS blockchain_anchors (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    anchor_type     TEXT NOT NULL,
+    source_hash     TEXT NOT NULL,
+    payload_json    TEXT NOT NULL,
+    contract_endpoint TEXT,
+    transaction_id  TEXT,
+    block_number    INTEGER,
+    on_chain_hash   TEXT,
+    anchor_status   TEXT DEFAULT 'pending',
+    receipt_json    TEXT,
+    sha256_hash     TEXT,
+    anchored_at     TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS performance_metrics (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    operation       TEXT NOT NULL,
+    module          TEXT,
+    input_hash      TEXT,
+    duration_sec    REAL NOT NULL,
+    memory_bytes    INTEGER DEFAULT 0,
+    cpu_percent     REAL DEFAULT 0.0,
+    result_hash     TEXT,
+    metadata_json   TEXT,
+    measured_at     TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_scireg_name ON scientific_registry(name);
+CREATE INDEX IF NOT EXISTS idx_scireg_domain ON scientific_registry(domain);
+CREATE INDEX IF NOT EXISTS idx_eqstab_proof ON equation_stability(proof_id);
+CREATE INDEX IF NOT EXISTS idx_eqstab_class ON equation_stability(stability_class);
+CREATE INDEX IF NOT EXISTS idx_eqopt_proof ON equation_optimization(proof_id);
+CREATE INDEX IF NOT EXISTS idx_eqopt_name ON equation_optimization(equation_name);
+CREATE INDEX IF NOT EXISTS idx_formalp_proof ON formal_proofs(proof_id);
+CREATE INDEX IF NOT EXISTS idx_formalp_format ON formal_proofs(proof_format);
+CREATE INDEX IF NOT EXISTS idx_bcanchor_type ON blockchain_anchors(anchor_type);
+CREATE INDEX IF NOT EXISTS idx_bcanchor_status ON blockchain_anchors(anchor_status);
+CREATE INDEX IF NOT EXISTS idx_bcanchor_hash ON blockchain_anchors(source_hash);
+CREATE INDEX IF NOT EXISTS idx_perfmetric_op ON performance_metrics(operation);
+CREATE INDEX IF NOT EXISTS idx_perfmetric_time ON performance_metrics(measured_at);
 """
 
 

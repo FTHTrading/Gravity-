@@ -1,0 +1,39 @@
+[package]
+name = "gravity-anchor-contracts"
+version = "0.1.0"
+edition = "2021"
+authors = ["FTHTrading"]
+description = "Deterministic integrity-anchoring smart contracts for the Gravity- forensic system"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["cosmwasm"]
+cosmwasm = ["cosmwasm-std", "cosmwasm-schema", "cw-storage-plus"]
+substrate = []
+
+[dependencies]
+cosmwasm-std = { version = "1.5", optional = true }
+cosmwasm-schema = { version = "1.5", optional = true }
+cw-storage-plus = { version = "1.2", optional = true }
+schemars = "0.8"
+serde = { version = "1.0", features = ["derive"] }
+hex = "0.4"
+sha2 = "0.10"
+thiserror = "1.0"
+
+[dev-dependencies]
+cosmwasm-std = { version = "1.5", features = ["staking"] }
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = "abort"
+incremental = false
+overflow-checks = true

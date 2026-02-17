@@ -1449,6 +1449,258 @@ def run_all(pdf_path: str = ""):
     log.info("=" * 60)
 
 
+# ═══════════════════════════════════════════════════════════════════
+# PHASE VII – Advanced Mathematical, Rust, and Formal Integrity
+# ═══════════════════════════════════════════════════════════════════
+
+def run_detect_missing(equation_str):
+    """Detect missing factors in an equation."""
+    from src.math.missing_factor_detector import MissingFactorDetector
+    det = MissingFactorDetector()
+    report = det.detect(equation_str, name="cli_input")
+    det.save_to_db(report)
+    print(f"\n{'='*60}")
+    print(f"MISSING FACTOR ANALYSIS: {equation_str}")
+    print(f"{'='*60}")
+    print(f"Severity       : {report.severity}")
+    print(f"Missing consts : {len(report.missing_constants)}")
+    for mc in report.missing_constants:
+        print(f"  - {mc['constant']}: {mc['reason']}")
+    print(f"Dim mismatches : {len(report.dimension_mismatch)}")
+    print(f"Non-normalized : {len(report.non_normalized)}")
+    print(f"Assumptions    : {len(report.implicit_assumptions)}")
+    for ia in report.implicit_assumptions:
+        print(f"  - {ia['type']}: {ia['description']}")
+    print(f"Canonical ref  : {report.canonical_comparison or 'none'}")
+    if report.structural_deviation:
+        print(f"Deviation      : {report.structural_deviation}")
+    print(f"SHA-256        : {report.sha256_hash}")
+
+
+def run_optimize_equation(equation_str):
+    """Optimize an equation expression."""
+    from src.math.solution_optimizer import SolutionOptimizer
+    opt = SolutionOptimizer()
+    result = opt.optimize(equation_str, name="cli_input")
+    opt.save_to_db(result)
+    print(f"\n{'='*60}")
+    print(f"EQUATION OPTIMIZATION: {equation_str}")
+    print(f"{'='*60}")
+    print(f"Original ops   : {result.original_complexity}")
+    print(f"Optimized ops  : {result.optimized_complexity}")
+    print(f"Compression    : {result.compression_ratio*100:.1f}%")
+    print(f"Optimized form : {result.optimized_expr}")
+    print(f"Equivalent     : {result.is_equivalent}")
+    if result.strategies_applied:
+        print(f"Strategies     :")
+        for s in result.strategies_applied:
+            print(f"  - {s['strategy']}: {s['ops_before']} → {s['ops_after']} ops")
+    if result.overparameterized:
+        print(f"Overparameterized: {result.overparameterization_details}")
+    print(f"SHA-256        : {result.sha256_hash}")
+
+
+def run_stability_analysis(equation_str):
+    """Analyze stability of an equation/system."""
+    from src.math.stability_analyzer import StabilityAnalyzer
+    sa = StabilityAnalyzer()
+    report = sa.analyze_single(equation_str, name="cli_input")
+    sa.save_to_db(report)
+    print(f"\n{'='*60}")
+    print(f"STABILITY ANALYSIS: {equation_str}")
+    print(f"{'='*60}")
+    print(f"Dimension      : {report.system_dimension}")
+    print(f"Stability class: {report.stability_class}")
+    print(f"Description    : {report.stability_description}")
+    print(f"Is stable      : {report.is_stable}")
+    print(f"Eigenvalues    : {len(report.eigenvalues)}")
+    for ec in report.eigenvalue_classification:
+        print(f"  - {ec['eigenvalue']}: {ec['classification']}")
+    if report.lyapunov_exponent is not None:
+        print(f"Lyapunov exp   : {report.lyapunov_exponent:.6f}")
+    print(f"SHA-256        : {report.sha256_hash}")
+
+
+def run_formal_proof_export(equation_str):
+    """Generate formal proof for an equation."""
+    from src.math.formal_proof_export import FormalProofExporter
+    fpe = FormalProofExporter()
+    proof = fpe.generate_proof(equation_str, name="cli_input")
+    fpe.save_to_db(proof)
+    print(f"\n{'='*60}")
+    print(f"FORMAL PROOF EXPORT: {equation_str}")
+    print(f"{'='*60}")
+    print(f"Steps          : {len(proof.steps)}")
+    for step in proof.steps:
+        print(f"  {step.step_number}. [{step.operation}] {step.input_expr} → {step.output_expr}")
+        print(f"     Axioms: {', '.join(step.axioms_used)}")
+    print(f"Axioms used    : {', '.join(proof.axioms_used)}")
+    print(f"Valid          : {proof.is_valid}")
+    print(f"SHA-256        : {proof.sha256_hash}")
+    if proof.smt_lib_export:
+        print(f"\nSMT-LIB export ({len(proof.smt_lib_export)} chars):")
+        for line in proof.smt_lib_export.split("\n")[:10]:
+            print(f"  {line}")
+        if proof.smt_lib_export.count("\n") > 10:
+            print(f"  ... ({proof.smt_lib_export.count(chr(10)) - 10} more lines)")
+
+
+def run_solvability_index(equation_str):
+    """Compute solvability index for an equation."""
+    from src.optimization.solvability_index import SolvabilityIndex
+    si = SolvabilityIndex()
+    result = si.compute(equation_str, name="cli_input")
+    si.save_to_db(result)
+    print(f"\n{'='*60}")
+    print(f"SOLVABILITY INDEX: {equation_str}")
+    print(f"{'='*60}")
+    print(f"SI             : {result.solvability_index:.6f}")
+    print(f"Free variables : {result.free_variables}")
+    print(f"Constraints    : {result.constraints}")
+    print(f"Stability S    : {result.stability_factor:.4f}")
+    print(f"Dimension D    : {result.dimensional_completeness:.4f}")
+    print(f"Interpretation : {result.interpretation}")
+    print(f"SHA-256        : {result.sha256_hash}")
+
+
+def run_efficiency_score(equation_str):
+    """Compute efficiency score for an equation."""
+    from src.optimization.model_efficiency_score import ModelEfficiencyScore
+    mes = ModelEfficiencyScore()
+    result = mes.compute(equation_str, name="cli_input")
+    mes.save_to_db(result)
+    print(f"\n{'='*60}")
+    print(f"EFFICIENCY SCORE: {equation_str}")
+    print(f"{'='*60}")
+    print(f"Ops            : {result.operation_count}")
+    print(f"Tree depth     : {result.tree_depth}")
+    print(f"Parameters     : {result.parameter_count}")
+    print(f"Normalized cost: {result.normalized_cost:.4f}")
+    print(f"Efficiency     : {result.efficiency_score:.4f}")
+    print(f"SHA-256        : {result.sha256_hash}")
+
+
+def run_scientist_link(name):
+    """Look up a scientist in the registry."""
+    from src.taxonomy.scientific_registry import ScientificRegistry
+    reg = ScientificRegistry()
+    c = reg.get(name)
+    if c is None:
+        print(f"Contributor not found: {name}")
+        print("Available contributors:")
+        for cc in reg.list_all():
+            print(f"  - {cc.name} ({cc.domain})")
+        return
+    reg.save_one_to_db(name)
+    print(f"\n{'='*60}")
+    print(f"SCIENTIFIC CONTRIBUTOR: {c.name}")
+    print(f"{'='*60}")
+    print(f"Domain         : {c.domain}")
+    if c.birth_year:
+        print(f"Lived          : {c.birth_year}–{c.death_year or 'present'}")
+    print(f"Nationality    : {c.nationality}")
+    print(f"Contributions  :")
+    for cc in c.core_contributions:
+        print(f"  - {cc}")
+    print(f"Key equations  : {', '.join(c.key_equations)}")
+    print(f"Applications   :")
+    for app in c.modern_applications:
+        print(f"  - {app}")
+    print(f"SHA-256        : {c.sha256_hash}")
+
+
+def run_anchor_root():
+    """Anchor current Merkle root to blockchain."""
+    from src.crypto.rust_anchor_bridge import RustAnchorBridge
+    from src.crypto.merkle_integrity import MerkleIntegrity
+    mi = MerkleIntegrity()
+    root = mi.compute_root()
+    bridge = RustAnchorBridge(endpoint="local", dry_run=True)
+    receipt = bridge.anchor_merkle_root(root, leaf_count=mi.leaf_count)
+    bridge.save_to_db(receipt)
+    print(f"\n{'='*60}")
+    print(f"BLOCKCHAIN ANCHOR – MERKLE ROOT")
+    print(f"{'='*60}")
+    print(f"Root hash      : {root}")
+    print(f"Status         : {receipt.status}")
+    print(f"Transaction    : {receipt.transaction_id}")
+    print(f"On-chain hash  : {receipt.on_chain_hash}")
+    print(f"Verified       : {bridge.verify(receipt)}")
+
+
+def run_anchor_equation(equation_str):
+    """Anchor an equation proof to blockchain."""
+    import hashlib as _hl
+    from src.crypto.rust_anchor_bridge import RustAnchorBridge
+    eq_hash = _hl.sha256(equation_str.encode("utf-8")).hexdigest()
+    bridge = RustAnchorBridge(endpoint="local", dry_run=True)
+    receipt = bridge.anchor_equation_proof(
+        equation_name="cli_input",
+        equation_hash=eq_hash,
+    )
+    bridge.save_to_db(receipt)
+    print(f"\n{'='*60}")
+    print(f"BLOCKCHAIN ANCHOR – EQUATION PROOF")
+    print(f"{'='*60}")
+    print(f"Equation       : {equation_str}")
+    print(f"Equation hash  : {eq_hash}")
+    print(f"Status         : {receipt.status}")
+    print(f"Transaction    : {receipt.transaction_id}")
+    print(f"On-chain hash  : {receipt.on_chain_hash}")
+    print(f"Verified       : {bridge.verify(receipt)}")
+
+
+def run_benchmark():
+    """Run Phase VII performance benchmark."""
+    from src.performance.benchmark_suite import BenchmarkSuite
+    from src.math.equation_parser import EquationParser
+    from src.math.solution_optimizer import SolutionOptimizer
+    from src.math.stability_analyzer import StabilityAnalyzer
+    from src.optimization.solvability_index import SolvabilityIndex
+    from src.optimization.compression_ratio import CompressionRatio
+
+    suite = BenchmarkSuite()
+    test_equations = [
+        ("E=mc2", "m*c**2"),
+        ("Newton Gravity", "G*m1*m2/r**2"),
+        ("Coulomb", "q1*q2/(4*pi*epsilon_0*r**2)"),
+        ("Kinetic", "m*v**2/2"),
+        ("Friedmann", "8*pi*G*rho/3"),
+    ]
+
+    parser = EquationParser()
+    optimizer = SolutionOptimizer()
+    stability = StabilityAnalyzer()
+    si = SolvabilityIndex()
+    cr = CompressionRatio()
+
+    print(f"\n{'='*60}")
+    print(f"PHASE VII PERFORMANCE BENCHMARK")
+    print(f"{'='*60}")
+
+    for name, expr in test_equations:
+        with suite.measure(f"parse_{name}"):
+            parser.parse_plaintext(expr, name=name)
+        with suite.measure(f"optimize_{name}"):
+            optimizer.optimize(expr, name=name)
+        with suite.measure(f"stability_{name}"):
+            stability.analyze_single(expr, name=name)
+        with suite.measure(f"solvability_{name}"):
+            si.compute(expr, name=name)
+        with suite.measure(f"compression_{name}"):
+            cr.compute(expr, name=name)
+
+    suite.save_to_db()
+    suite.save_to_log()
+    summary = suite.summary()
+    print(f"\nTotal operations: {summary['total_records']}")
+    print(f"Total time     : {summary['total_time_sec']:.4f}s")
+    print(f"Average time   : {summary['avg_time_sec']:.6f}s")
+    print(f"Min time       : {summary['min_time_sec']:.6f}s")
+    print(f"Max time       : {summary['max_time_sec']:.6f}s")
+    print(f"Benchmark log  : logs/benchmarks.json")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Project Anchor – Forensic Research Aggregation System",
@@ -1545,6 +1797,18 @@ def main():
     parser.add_argument("--provenance-summary", action="store_true", help="Deep provenance summary")
     parser.add_argument("--source-report", nargs="?", type=int, const=0, help="Source forensics report (optional source ID, 0=ecosystem)")
     parser.add_argument("--quick-source", type=int, help="One-line source intelligence summary")
+
+    # ── Phase VII: Advanced Mathematical & Formal Integrity ──
+    parser.add_argument("--detect-missing", type=str, help="Detect missing factors in equation (plain text)")
+    parser.add_argument("--optimize-equation", type=str, help="Optimize/simplify an equation expression")
+    parser.add_argument("--stability-analysis", type=str, help="Analyze stability of an equation/system")
+    parser.add_argument("--formal-proof-export", type=str, help="Generate formal proof tree for an equation")
+    parser.add_argument("--solvability-index", type=str, help="Compute solvability index for an equation")
+    parser.add_argument("--efficiency-score", type=str, help="Compute efficiency score for an equation")
+    parser.add_argument("--scientist-link", type=str, help="Look up a scientist in the registry")
+    parser.add_argument("--anchor-root", action="store_true", help="Anchor Merkle root to blockchain (dry run)")
+    parser.add_argument("--anchor-equation", type=str, help="Anchor an equation proof to blockchain (dry run)")
+    parser.add_argument("--benchmark", action="store_true", help="Run Phase VII performance benchmark")
 
     args = parser.parse_args()
 
@@ -1704,6 +1968,27 @@ def main():
         run_source_forensics(args.source_report)
     elif args.quick_source:
         run_quick_source(args.quick_source)
+    # ── Phase VII dispatch ──
+    elif args.detect_missing:
+        run_detect_missing(args.detect_missing)
+    elif args.optimize_equation:
+        run_optimize_equation(args.optimize_equation)
+    elif args.stability_analysis:
+        run_stability_analysis(args.stability_analysis)
+    elif args.formal_proof_export:
+        run_formal_proof_export(args.formal_proof_export)
+    elif args.solvability_index:
+        run_solvability_index(args.solvability_index)
+    elif args.efficiency_score:
+        run_efficiency_score(args.efficiency_score)
+    elif args.scientist_link:
+        run_scientist_link(args.scientist_link)
+    elif args.anchor_root:
+        run_anchor_root()
+    elif args.anchor_equation:
+        run_anchor_equation(args.anchor_equation)
+    elif args.benchmark:
+        run_benchmark()
     else:
         parser.print_help()
 
